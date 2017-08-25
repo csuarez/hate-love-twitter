@@ -1,7 +1,7 @@
 {
   "name": "hate-love-twitter",
   "version": "0.1.0",
-  "description": "Google Chrome Extension which hides likes of users you follow from your Twitter timeline Edit",
+  "description": "Google Chrome Extension which hides likes of users you follow from your Twitter timeline",
   "main": "hate-love.js",
   "scripts": {
     "prebuild": "del-cli dist build -f",
