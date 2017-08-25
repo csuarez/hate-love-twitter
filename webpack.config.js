@@ -1,4 +1,5 @@
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 
 const browser =  process.env.BROWSER;
 
@@ -25,6 +26,11 @@ module.exports = {
             { from: `./src/manifests/${browser}.json`   , to: 'manifest.json' },
             { from: './src/styles/styles.css'           , to: 'styles.css' },
             { from: './src/img/icon.png'                , to: 'icon.png' }
-        ])
+        ]),
+        new ZipPlugin({
+            path: '.',
+            filename: `${browser}.zip`,
+            include: [/\.*$/]
+        })
     ]
 };
