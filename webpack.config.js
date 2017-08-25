@@ -4,10 +4,13 @@ const ZipPlugin = require('zip-webpack-plugin');
 const browser =  process.env.BROWSER;
 
 module.exports = {
-    entry: './src/scripts/hate-love.js',
+    entry: {
+        'hate-love': './src/scripts/hate-love.js',
+        popup: './src/scripts/popup.js'
+    },
     output: {
         path: __dirname + '/dist',
-        filename: 'hate-love.js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -25,7 +28,8 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: `./src/manifests/${browser}.json`   , to: 'manifest.json' },
             { from: './src/styles/styles.css'           , to: 'styles.css' },
-            { from: './src/img/icon.png'                , to: 'icon.png' }
+            { from: './src/img/icon.png'                , to: 'icon.png' },
+            { from: './src/views/popup.html'            , to: 'popup.html' }
         ]),
         new ZipPlugin({
             path: '.',
