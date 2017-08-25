@@ -1,5 +1,7 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const browser =  process.env.BROWSER;
+
 module.exports = {
     entry: './src/scripts/hate-love.js',
     output: {
@@ -20,9 +22,9 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([
-            { from: './src/manifests/chrome.json'   , to: 'manifest.json' },
-            { from: './src/styles/styles.css'       , to: 'styles.css' },
-            { from: './src/img/icon.png'            , to: 'icon.png' }
+            { from: `./src/manifests/${browser}.json`   , to: 'manifest.json' },
+            { from: './src/styles/styles.css'           , to: 'styles.css' },
+            { from: './src/img/icon.png'                , to: 'icon.png' }
         ])
     ]
 };

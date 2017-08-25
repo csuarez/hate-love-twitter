@@ -5,7 +5,7 @@
   "main": "hate-love.js",
   "scripts": {
     "prebuild": "del-cli dist build -f",
-    "build": "webpack -p"
+    "build": "env BROWSER='chrome' webpack -p"
   },
   "repository": {
     "type": "git",
