@@ -2,34 +2,28 @@
  * Hides an DOM element
  * @param {Element} element
  */
-var hideElement = function(element) {
-  element.classList.add('hated');
-}
+const hideElement = (element) => element.classList.add('hated');
 
 /**
  * Given a DOM element which represent a tweet, indicates if it is a like
  * @param {Element} tweet
  */
-var isLike = function(tweet) {
+var isLike = (tweet) => {
   var result = Array.from(tweet.getElementsByClassName('Icon--heartBadge'));
   return result.length !== 0;
-}
+};
 
 /**
  * Given a DOM element indicates if it is a tweet.
  * @param {Element} element
  */
-var isTweet = function(element) {
-  return element.classList && element.classList.contains('js-stream-item');
-}
+var isTweet = (element) => element.classList && element.classList.contains('js-stream-item');
 
 /**
  * Given an array of elements, hide the likes
  * @param {NodeList} elements
  */
-var hideLikes = function (elements) {
-  return Array.from(elements).filter(isLike).forEach(hideElement);
-}
+var hideLikes =  (elements) => Array.from(elements).filter(isLike).forEach(hideElement);
 
 // Initial processing
 var firstTweets = document.getElementsByClassName('js-stream-item');
@@ -40,7 +34,7 @@ var target = document.querySelector('.stream-container');
 
 // Create an observer
 var observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
+  mutations.forEach((mutation) => {
     var nodes = Array.from(mutation.addedNodes);
     var tweets = nodes.filter(isTweet);
     hideLikes(tweets);
