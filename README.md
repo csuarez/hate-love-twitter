@@ -6,18 +6,46 @@
 
 This browser extension blocks from your Twitter timeline the likes of users you follow
 
-## Installation
+## :metal: Install it!
 
-### Google Chrome
-Install it from [Chrome web store](https://chrome.google.com/webstore/detail/hate-love-for-twitter/mpogeleaahfdeolnbmajdacbbmkhenbp)
+| **Browser**  |   |
+|--------------|---|
+| Google Chrome  | :arrow_down: [**INSTALL**](https://chrome.google.com/webstore/detail/hate-love-for-twitter/mpogeleaahfdeolnbmajdacbbmkhenbp)  |
+| Firefox  | :arrow_down: [**INSTALL**](https://github.com/csuarez/hate-love-twitter/releases/download/firefox-v0.2/hate-love-twitter-firefox-v0.2.xpi)  |
 
-### Other browsers?
-They are under development or under revision.
+### What happens with *XXX* browser?
+I hope to port the extension to other browsers very soon :v:
 
-## Build
-```sh
-$ npm install
-$ npm run build
-```
+## :construction_worker: Build
 
-That's it!
+### Pre build
+
+1. Execute:
+
+    ```sh
+    $ npm install
+    ```
+
+### Chrome
+
+1. Execute:
+
+    ```sh
+    $ npm run build:chrome
+    ```
+
+2. The generated extension will be at `dist/chrome.zip`
+
+### Firefox
+
+1. Rename the `env.dist` file to `env`
+
+2. Complete the `FIREFOX_JWT_ISSUE` and `FIREFOX_JWT_SECRET` with your credentials.
+
+3. Execute:
+
+    ```sh
+    $ npm run build:firefox
+    ```
+
+4. The generated extension will be at `dist/hate_love_a_twitter_like_blocker-<version>-an+fx.xpi`
