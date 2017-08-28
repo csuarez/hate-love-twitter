@@ -7,7 +7,9 @@
     "prebuild:firefox": "del-cli dist build -f",
     "build:firefox": "env BROWSER='firefox' webpack -p",
     "prebuild:chrome": "del-cli dist build -f",
-    "build:chrome": "env BROWSER='chrome' webpack -p"
+    "build:chrome": "env BROWSER='chrome' webpack -p",
+    "prebuild:opera": "del-cli dist build -f",
+    "build:opera": "env BROWSER='opera' webpack -p"
   },
   "repository": {
     "type": "git",

@@ -49,3 +49,13 @@ I hope to port the extension to other browsers very soon :v:
     ```
 
 4. The generated extension will be at `dist/hate_love_a_twitter_like_blocker-<version>-an+fx.xpi`
+
+### Opera
+
+1. Execute:
+
+    ```sh
+    $ npm run build:opera
+    ```
+
+2. The generated extension will be at `dist/opera.zip`

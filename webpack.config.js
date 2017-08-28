@@ -18,6 +18,14 @@ const browserBuilds = [
         })
     },
     {
+        browser: 'opera',
+        plugin: new ZipPlugin({
+            path: '.',
+            filename: `${browser}.zip`,
+            include: [/\.*$/]
+        })
+    },
+    {
         browser: 'firefox',
         plugin: new WebpackWebExt({
             runOnce: false,
