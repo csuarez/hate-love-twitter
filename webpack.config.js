@@ -1,7 +1,39 @@
+require('dotenv').config()
+
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
+const WebpackWebExt = require('webpack-webext-plugin');
 
 const browser =  process.env.BROWSER;
+const firefoxIssuer = process.env.FIREFOX_JWT_ISSUER;
+const firefoxSecret = process.env.FIREFOX_JWT_SECRET;
+
+const browserBuilds = [
+    {
+        browser: 'chrome',
+        plugin: new ZipPlugin({
+            path: '.',
+            filename: `${browser}.zip`,
+            include: [/\.*$/]
+        })
+    },
+    {
+        browser: 'firefox',
+        plugin: new WebpackWebExt({
+            runOnce: false,
+            argv: [
+                'sign',
+                '--api-key', firefoxIssuer,
+                '--api-secret', firefoxSecret,
+                '-a', 'dist/',
+                '-s', 'dist/'],
+        }),
+    }
+];
+
+const defaultBrowserBuild = browserBuilds[0].plugin;
+const selectedBuilds = browserBuilds.filter((plugin) => browser === plugin.browser);
+const browserBuildPlugin = selectedBuilds.length !== 0 ? selectedBuilds[0].plugin : defaultBrowserBuild;
 
 module.exports = {
     entry: {
@@ -31,10 +63,6 @@ module.exports = {
             { from: './src/img/icon.png'                , to: 'icon.png' },
             { from: './src/views/popup.html'            , to: 'popup.html' }
         ]),
-        new ZipPlugin({
-            path: '.',
-            filename: `${browser}.zip`,
-            include: [/\.*$/]
-        })
+        browserBuildPlugin
     ]
 };
