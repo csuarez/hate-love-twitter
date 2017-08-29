@@ -3,7 +3,7 @@
 
     "name": "Hate Love: a Twitter like blocker",
     "description": "This extension hides the likes of users you follow from your Twitter timeline",
-    "version": "0.2",
+    "version": "0.3",
 
     "browser_action": {
         "default_icon": "icon.png",
@@ -25,7 +25,6 @@
         }
     ],
     "permissions": [
-        "https://ajax.googleapis.com/",
-        "tabs"
+        "https://ajax.googleapis.com/"
     ]
 }
