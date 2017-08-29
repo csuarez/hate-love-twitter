@@ -8,43 +8,75 @@ const hideElement = (element) => element.classList.add('hated');
  * Given a DOM element which represent a tweet, indicates if it is a like
  * @param {Element} tweet
  */
-var isLike = (tweet) => {
+const isLike = (tweet) => {
   var result = Array.from(tweet.getElementsByClassName('Icon--heartBadge'));
   return result.length !== 0;
 };
 
 /**
+ * Given a DOM element indicates if has a CSS class
+ * @param {Element} element
+ * @param {String} cssClass
+ */
+const hasClass = (element, cssClass) => element.classList && element.classList.contains(cssClass);
+
+/**
  * Given a DOM element indicates if it is a tweet.
  * @param {Element} element
  */
-var isTweet = (element) => element.classList && element.classList.contains('js-stream-item');
+const isTweet = (element) => hasClass(element, 'js-stream-item');
 
 /**
  * Given an array of elements, hide the likes
  * @param {NodeList} elements
  */
-var hideLikes =  (elements) => Array.from(elements).filter(isLike).forEach(hideElement);
+const hideLikes =  (elements) => Array.from(elements).filter(isLike).forEach(hideElement);
 
-// Initial processing
-var firstTweets = document.getElementsByClassName('js-stream-item');
-hideLikes(firstTweets);
+/**
+ * Given an array of elements, hide the likes
+ * @param {NodeList} elements
+ */
+const hideFirstLikes =  () => {
+  const firstTweets = document.getElementsByClassName('js-stream-item');
+  hideLikes(firstTweets);
+};
 
-// Get the tweet stream
-var target = document.querySelector('.stream-container');
+// Get bodyElement
+const bodyElement = document.querySelector('body');
 
-// Create an observer
-var observer = new MutationObserver(function(mutations) {
-  mutations.forEach((mutation) => {
-    var nodes = Array.from(mutation.addedNodes);
-    var tweets = nodes.filter(isTweet);
-    hideLikes(tweets);
-  });
-});
-
-var config = {
+// MutationObserver config
+const config = {
   childList: true,
   subtree: true
 };
 
+// Create an observer to watch tweets in the stream
+const tweetObserver = new MutationObserver((mutations) => {
+  firstTweetObserver.disconnect();
+  mutations.forEach((mutation) => {
+    const nodes = Array.from(mutation.addedNodes);
+    const tweets = nodes.filter(isTweet);
+    hideLikes(tweets);
+  });
+});
+
+// Create an observer to watch the first tweet at the body
+const firstTweetObserver = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    const nodes = Array.from(mutation.addedNodes);
+    const tweets = nodes.filter(isTweet);
+    if (tweets.length > 0) {
+      hideFirstLikes();
+      const tweetStream = document.getElementsByClassName('stream');
+      if (tweetStream.length > 0){
+        tweetObserver.observe(tweetStream[0], config);
+      }
+
+    }
+  });
+});
+
+
+
 // Start the observer
-observer.observe(target, config);
+firstTweetObserver.observe(bodyElement, config);
