@@ -1,3 +1,12 @@
+const pushState = history.pushState;
+history.pushState = function(state) {
+    console.log(state);
+    if (typeof history.onpushstate == "function") {
+        history.onpushstate({state: state});
+    }
+    return pushState.apply(history, arguments);
+}
+
 /**
  * Hides an DOM element
  * @param {Element} element
@@ -52,7 +61,6 @@ const config = {
 
 // Create an observer to watch tweets in the stream
 const tweetObserver = new MutationObserver((mutations) => {
-  firstTweetObserver.disconnect();
   mutations.forEach((mutation) => {
     const nodes = Array.from(mutation.addedNodes);
     const tweets = nodes.filter(isTweet);
@@ -60,23 +68,6 @@ const tweetObserver = new MutationObserver((mutations) => {
   });
 });
 
-// Create an observer to watch the first tweet at the body
-const firstTweetObserver = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    const nodes = Array.from(mutation.addedNodes);
-    const tweets = nodes.filter(isTweet);
-    if (tweets.length > 0) {
-      hideFirstLikes();
-      const tweetStream = document.getElementsByClassName('stream');
-      if (tweetStream.length > 0){
-        tweetObserver.observe(tweetStream[0], config);
-      }
-
-    }
-  });
-});
-
-
-
 // Start the observer
-firstTweetObserver.observe(bodyElement, config);
+hideFirstLikes();
+tweetObserver.observe(bodyElement, config);

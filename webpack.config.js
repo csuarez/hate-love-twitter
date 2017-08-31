@@ -43,6 +43,21 @@ const defaultBrowserBuild = browserBuilds[0].plugin;
 const selectedBuilds = browserBuilds.filter((plugin) => browser === plugin.browser);
 const browserBuildPlugin = selectedBuilds.length !== 0 ? selectedBuilds[0].plugin : defaultBrowserBuild;
 
+const jsTransformationModule = {
+    rules: [
+        {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: '/node_modules/',
+            options: {
+                presets: ['es2015']
+            }
+        }
+    ]
+};
+
+const jsModule = browser !== 'dev' ? jsTransformationModule : {};
+
 module.exports = {
     entry: {
         'hate-love': './src/scripts/hate-love.js',
@@ -52,18 +67,7 @@ module.exports = {
         path: __dirname + '/dist',
         filename: '[name].js'
     },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: '/node_modules/',
-                options: {
-                    presets: ['es2015']
-                }
-            }
-        ]
-    },
+    module: jsModule,
     plugins: [
         new CopyWebpackPlugin([
             { from: `./src/manifests/${browser}.json`   , to: 'manifest.json' },
