@@ -33,7 +33,10 @@ const hasClass = (element, cssClass) => element.classList && element.classList.c
  * Given a DOM element indicates if it is a tweet.
  * @param {Element} element
  */
-const isTweet = (element) => hasClass(element, 'js-stream-item');
+const isTweet = (element) =>
+  hasClass(element, 'js-stream-item')
+  && !hasClass(element, 'js-activity-favorited_retweet')
+  && !hasClass(element, 'js-activity-favorited');
 
 /**
  * Given an array of elements, hide the likes
