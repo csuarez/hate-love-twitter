@@ -12,6 +12,7 @@ This browser extension blocks from your Twitter timeline the likes of users you 
 |--------------|---|
 | Google Chrome  | :arrow_down: [**INSTALL**](https://chrome.google.com/webstore/detail/hate-love-for-twitter/mpogeleaahfdeolnbmajdacbbmkhenbp)  |
 | Firefox  | :arrow_down: [**INSTALL**](https://addons.mozilla.org/es/firefox/addon/hate-love-block-twitter-likes/)  |
+| Opera  | :arrow_down: [**INSTALL**](https://addons.opera.com/es/extensions/details/hate-love-a-twitter-like-blocker/?display=en)  |
 
 ### What happens with *XXX* browser?
 I hope to port the extension to other browsers very soon :v:
